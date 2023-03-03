@@ -4,12 +4,11 @@ ArCOM OMSerial(Serial); //Create ArCOM wrapper for SerialUSB
 unsigned int ModeByte = 0;
 unsigned short Parameters[5] = {0}; //Create parameter array
 
-int ValvePins[] = {}
+int ValvePins[] = {};
 
 
 void setup() {
 
-  pinMode(TriggerPin, INPUT);
   Serial.begin(115200); //Initialize the USB serial port
 
 }

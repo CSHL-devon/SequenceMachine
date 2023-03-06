@@ -1,4 +1,3 @@
-%-------------------------------------------------------------------------------------------------------
 % This function sends a stimulation sequence of two odorants to a teensy-controlled 
 % valve driver/odor machine.Relies on ArCOM libraries written by Josh Sanders 
 % (https://github.com/sanworks)
@@ -8,7 +7,7 @@
 %         - For the standard, 12-odor teensy 4.0 machine, the options are: 1 - 6.
 %     - SecondStimulus: The odor valve that will be opened second in the sequence (bank 2)
 %         - For the standard, 12-odor teensy 4.0 machine, the options are: 7 - 12.
-%         - IF A VALUE OF 99 IS USED FOR THIS INPUT, THE MACHINE WILL DEFAULT TO A
+%         - IF A VALUE OF 99, OR GREATER IS USED FOR THIS INPUT, THE MACHINE WILL DEFAULT TO A
 %             SINGLE ODOR PRESENTATION PARADIGM.
 %     - PrefillTime: Time the odor is allowed to flood the tubes leading to the final valve 
 %         prior to presentation to the animal.
@@ -16,7 +15,6 @@
 %     - SequenceDelay: Time between the end of the first odor presentation and the start of the second.
 %
 % Devon Cowan, CSHL 2023
-%-------------------------------------------------------------------------------------------------------
 
 function SendSequence(FirstStimulus, SecondStimulus, PrefillTime, StimulusLength, SequenceDelay)
 
@@ -36,7 +34,7 @@ else
     end
 end
 
-%Prepare OM to receive stim sequence
+%Set OM function
 ModeByte = uint8(24);
 
 %Create Uint16 array of parameters for odor machine

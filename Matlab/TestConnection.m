@@ -1,3 +1,6 @@
+%This function tests the connection between Matlab and a teensy-controlled
+%valve driver/odor machine.
+
 function TestConnection
 
 ModeByte = uint8(42);

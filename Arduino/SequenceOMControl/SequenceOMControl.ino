@@ -13,7 +13,7 @@ Devon Cowan, CSHL 2023
 
 ArCOM OMSerial(Serial); //Create ArCOM wrapper for SerialUSB
 unsigned int ModeByte = 0;
-unsigned short Parameters[5] = {0}; //Create parameter array
+unsigned short Parameters[6] = {0}; //Create parameter array
 
 int ValvePins[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 14, 15, 16, 17, 18, 19};
 int CleaningValvePins[] = {18, 19};
@@ -42,60 +42,60 @@ void loop() {
         OMSerial.writeUint8(ModeByte); //Respond with same byte for confirmation
       }
       case 24: {
-        OMSerial.readUint16Array(Parameters, 5); //Read stim sequence from PC
-        OMSerial.writeUint16Array(Parameters, 5); //Respond with same sequence for confirmation
+        OMSerial.readUint16Array(Parameters, 6); //Read stim sequence from PC
+        OMSerial.writeUint16Array(Parameters, 6); //Respond with same sequence for confirmation
         //Open Cleaning valves
         digitalWriteFast(CleaningValvePins[0], HIGH);
         digitalWriteFast(CleaningValvePins[1], HIGH);
       }
       case 66: {
         //Execute odor 66
-        ControlValveStates(Parameters, 5);
+        ControlValveStates(Parameters, 6);
       }
     }
   }
 }
 
 void ControlValveStates(unsigned short Parameters[]){
-  if(Parameters[1] == 99){ //No second odor
+  if(Parameters[0] == 0){ //No second odor
     digitalWriteFast(CleaningValvePins[0], LOW); //Close cleaning valve
     digitalWriteFast(ValvePins[Parameters[0]], HIGH); //Open odor vial
-    delay(Parameters[2]); //Prefill tube with odor
+    delay(Parameters[3]); //Prefill tube with odor
 
     //Stimulus
     digitalWriteFast(ShuttleValvePins[0], HIGH); //Open shuttle (final) valve
-    delay(Parameters[3]); //Length of stimulus presentation
+    delay(Parameters[4]); //Length of stimulus presentation
     digitalWriteFast(ShuttleValvePins[0], LOW); //Close first shuttle valve
 
     //Cleanup
     delay(50); //Cleaning valves open faster than shuttle valve closes
-    digitalWriteFast(ValvePins[Parameters[0]], LOW); //Close odor vial
+    digitalWriteFast(ValvePins[Parameters[1]], LOW); //Close odor vial
     digitalWriteFast(CleaningValvePins[0], HIGH); //Open cleaning valve
     
   }else{ //Sequence of two odors
     digitalWriteFast(CleaningValvePins[0], LOW); //Close cleaning valves
     digitalWriteFast(CleaningValvePins[1], LOW);
-    digitalWriteFast(ValvePins[Parameters[0]], HIGH); //Open odor vials
-    digitalWriteFast(ValvePins[Parameters[1]], HIGH);
-    delay(Parameters[2]); //Prefill tubes with odor
+    digitalWriteFast(ValvePins[Parameters[1]], HIGH); //Open odor vials
+    digitalWriteFast(ValvePins[Parameters[2]], HIGH);
+    delay(Parameters[3]); //Prefill tubes with odor
 
     //First Stimulus
     digitalWriteFast(ShuttleValvePins[0], HIGH); //Open first shuttle (final) valve
-    delay(Parameters[3]); //Length of first stimulus presentation
+    delay(Parameters[4]); //Length of first stimulus presentation
     digitalWriteFast(ShuttleValvePins[0], LOW); //Close first shuttle valve
 
     //Inter-stimulus time
-    delay(Parameters[4]);
+    delay(Parameters[5]);
 
     //Second Stimulus
     digitalWriteFast(ShuttleValvePins[1], HIGH); //Open second shuttle valve
-    delay(Parameters[3]); //Length of second stimulus presentation
+    delay(Parameters[4]); //Length of second stimulus presentation
     digitalWriteFast(ShuttleValvePins[1], LOW); //Close second shuttle valve
 
     //Cleanup
     delay(50); //Cleaning valves open faster than shuttle valve closes
-    digitalWriteFast(ValvePins[Parameters[0]], LOW); //Close odor vials
-    digitalWriteFast(ValvePins[Parameters[1]], LOW);
+    digitalWriteFast(ValvePins[Parameters[1]], LOW); //Close odor vials
+    digitalWriteFast(ValvePins[Parameters[2]], LOW);
     digitalWriteFast(CleaningValvePins[0], HIGH); //Open cleaning valves
     digitalWriteFast(CleaningValvePins[1], HIGH);
   }

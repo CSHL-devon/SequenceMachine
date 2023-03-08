@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name "SequenceOMFootprints")(type "KiCad")(uri "${KIPRJMOD}/SequenceOMFootprints.pretty")(options "")(descr ""))
+)

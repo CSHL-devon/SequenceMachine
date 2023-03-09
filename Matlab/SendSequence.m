@@ -4,7 +4,9 @@
 % (https://github.com/sanworks)
 % 
 % Input arguments are as follows:
-%     - Paradigm: 0 = Single odor presentation (normal olfactometer), 1 = sequence presentation.
+%     - Paradigm: 0 = Single odor presentation, 1 = sequence presentation.
+%     - MFC1/2: Mass flow controller values. 12-bit (0-4095) for trial by trial concentration changes 
+%         of air dilution machines. 
 %     - FirstStimulus: The odor valve that will be opened first in the sequence (bank 1)
 %         - For the standard, 12-odor teensy 4.0 machine, the options are: 1 - 6.
 %     - SecondStimulus: The odor valve that will be opened second in the sequence (bank 2)
@@ -17,7 +19,7 @@
 % Devon Cowan, CSHL 2023
 %-------------------------------------------------------------------------------------------------------
 
-function SendSequence(Paradigm, FirstStimulus, SecondStimulus, PrefillTime, StimulusLength, SequenceDelay)
+function SendSequence(Paradigm, MFC1, MFC2, FirstStimulus, SecondStimulus, PrefillTime, StimulusLength, SequenceDelay)
 
 %Check stimulus range and correct odor numbers to teensy pin assignments
 if FirstStimulus < 1 || FirstStimulus > 6
@@ -35,16 +37,21 @@ else
     end
 end
 
-%Prepare OM to receive stim sequence
+%Prepare Teensy to receive stim sequence
 ModeByte = uint8(24);
 
-%Create Uint16 array of parameters for odor machine
+%Prepare mass flow controller values
+MFWord = [(dec2bin(MFC1, 12)) (dec2bin(MFC2, 12))];
+MFByteArray = uint8([bin2dec(MFWord(:,1:8)), bin2dec(MFWord(:,9:16)), bin2dec(MFWord(:,17:24))]);
+
+%Create Uint16 array of parameters for valve states
 Parameters = uint16([Paradigm, FirstStimPin, SecondStimPin, PrefillTime, StimulusLength, SequenceDelay]);
 
-Port = ArCOMObject('COM4', 115200); %Serial port for Odor machine Arduino
-
-Port.write(ModeByte, 'uint8'); %Tell OM to prepare for stim parameters
-Port.write(Parameters, 'uint16'); %Write parameters array to Arduino
-Response = Port.read(6, 'uint16'); %Read back same array to confirm receipt
+%Send stimulation information to Teensy
+Port = ArCOMObject('COM4', 115200); %Serial port for Teensy
+Port.write(ModeByte, 'uint8');
+Port.write(MFByteArray, 'uint8');
+Port.write(Parameters, 'uint16');
+Response = Port.read(6, 'uint16'); %Read back parameters array to confirm receipt
 
 clear Port; %Clear the serial port Object (releases the port)

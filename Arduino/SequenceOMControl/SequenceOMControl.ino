@@ -10,31 +10,38 @@ Devon Cowan, CSHL 2023
 */
 
 #include "Arcom.h" //Import ArCOM library
+#include <SPI.h>
 
 ArCOM OMSerial(Serial); //Create ArCOM wrapper for SerialUSB
+
+const int ChipSelect = 10; //Pin to select 12-bit DAC for SPI communication
 unsigned int ModeByte = 0;
-unsigned short Parameters[6] = {0}; //Create parameter array
+unsigned int MFCValues[3] = {0}; //Mass flow controller byte array
+unsigned short Parameters[6] = {0}; //Valve parameter array
 
 int ValvePins[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 14, 15, 16, 17, 18, 19};
 int CleaningValvePins[] = {18, 19};
 int ShuttleValvePins[] = {16, 17};
 
-void setup() {
-
+void setup() {  
+  //Set SPI pin mode
+  pinMode(ChipSelect, OUTPUT);
   //Set valve control pins as outputs
   for (i = 0; i < ARRAY_SIZE(ValvePins); i++){
     pinMode(ValvePins[i], OUTPUT);
   }
+
   //Open cleaning valves
   digitalWriteFast(CleaningValvePins[0], HIGH);
   digitalWriteFast(CleaningValvePins[1], HIGH);
+
+  //Intialize SPI
+  SPI.begin();
   //Initialize the USB serial port
   Serial.begin(115200);
-
 }
 
 void loop() {
-  
   if (OMSerial.available()) {
     ModeByte = OMSerial.readUint8(); //Read mode byte from PC
     switch (ModeByte) {
@@ -42,7 +49,8 @@ void loop() {
         OMSerial.writeUint8(ModeByte); //Respond with same byte for confirmation
       }
       case 24: {
-        OMSerial.readUint16Array(Parameters, 6); //Read stim sequence from PC
+        OMSerial.readUint8Array(MFCValues, 3); //Read mass flow controller values
+        OMSerial.readUint16Array(Parameters, 6); //Read valve sequence from PC
         OMSerial.writeUint16Array(Parameters, 6); //Respond with same sequence for confirmation
         //Open Cleaning valves
         digitalWriteFast(CleaningValvePins[0], HIGH);
@@ -50,13 +58,14 @@ void loop() {
       }
       case 66: {
         //Execute odor 66
-        ControlValveStates(Parameters, 6);
+        ControlValves(Parameters, 6);
+        ControlMFCs(MFCValues, 3);
       }
     }
   }
 }
 
-void ControlValveStates(unsigned short Parameters[]){
+void ControlValves(unsigned short Parameters[]){
   if(Parameters[0] == 0){ //No second odor
     digitalWriteFast(CleaningValvePins[0], LOW); //Close cleaning valve
     digitalWriteFast(ValvePins[Parameters[0]], HIGH); //Open odor vial
@@ -99,4 +108,16 @@ void ControlValveStates(unsigned short Parameters[]){
     digitalWriteFast(CleaningValvePins[0], HIGH); //Open cleaning valves
     digitalWriteFast(CleaningValvePins[1], HIGH);
   }
+}
+
+void ControlMFCs(unsigned int MFCValues[]){
+  //Prepare DAC to receive MFC values
+  digitalWrite(ChipSelect,LOW);
+  //Send MFC values to DAC
+  for(i = 0; i < 3; i++){
+    SPI.transfer(MFCValues[i]);
+    delayMicroseconds(20);
+  }
+  //De-select the DAC
+  digitalWrite(slaveSelectPin,HIGH);   
 }

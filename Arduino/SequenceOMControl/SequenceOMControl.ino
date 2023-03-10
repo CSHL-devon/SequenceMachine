@@ -80,7 +80,7 @@ void ControlValves(unsigned short Parameters[], byte MFCValues[]){
   if(Parameters[0] == 0){ //No second odor
     digitalWriteFast(CleaningValvePins[0], LOW); //Close cleaning valve
     digitalWriteFast(ValvePins[Parameters[0]], HIGH); //Open odor vial
-    ControlMFCs(MFCValues);
+    ControlMFCs(MFCValues); //Turn on MFCs
     delay(Parameters[3]); //Prefill tube with odor
 
     //Stimulus
@@ -90,7 +90,7 @@ void ControlValves(unsigned short Parameters[], byte MFCValues[]){
 
     //Cleanup
     delay(50); //Cleaning valves open faster than shuttle valve closes
-    ControlMFCs(0);
+    ControlMFCs(0); //Zero MFCs
     digitalWriteFast(ValvePins[Parameters[1]], LOW); //Close odor vial
     digitalWriteFast(CleaningValvePins[0], HIGH); //Open cleaning valve
     

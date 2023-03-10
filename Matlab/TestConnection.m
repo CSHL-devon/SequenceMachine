@@ -4,9 +4,9 @@
 function TestConnection
 
 ModeByte = uint8(42);
-Port = ArCOMObject('COM4', 115200); %Serial port for Odor machine Arduino
-Port.write(ModeByte, 'uint8'); %Write parameters array to Arduino
-Response = Port.read(1,'uint8'); %Read serial response from Arduino
+Port = ArCOMObject('COM4', 115200); %Serial port for Teensy
+Port.write(ModeByte, 'uint8'); %Write test byte to Teensy
+Response = Port.read(1,'uint8'); %Read serial response from Teensy
 
 if Response == ModeByte
     disp(['Odor machine is available on COM4'])

@@ -19,7 +19,7 @@
 % Devon Cowan, CSHL 2023
 %-------------------------------------------------------------------------------------------------------
 
-function SendSequence(Paradigm, MFC1, MFC2, FirstStimulus, SecondStimulus, PrefillTime, StimulusLength, SequenceDelay)
+function SendSequence(Paradigm, MFC1, MFC2, FirstStimulus, SecondStimulus, PreFillTime, StimulusLength, SequenceDelay)
 
 %Check stimulus range and correct odor numbers to teensy pin assignments
 if FirstStimulus < 1 || FirstStimulus > 6
@@ -45,7 +45,7 @@ MFWord = [(dec2bin(MFC1, 12)) (dec2bin(MFC2, 12))];
 MFByteArray = uint8([bin2dec(MFWord(:,1:8)), bin2dec(MFWord(:,9:16)), bin2dec(MFWord(:,17:24))]);
 
 %Create Uint16 array of parameters for valve states
-Parameters = uint16([Paradigm, FirstStimPin, SecondStimPin, PrefillTime, StimulusLength, SequenceDelay]);
+Parameters = uint16([Paradigm, FirstStimPin, SecondStimPin, PreFillTime, StimulusLength, SequenceDelay]);
 
 %Send stimulation information to Teensy
 Port = ArCOMObject('COM4', 115200); %Serial port for Teensy

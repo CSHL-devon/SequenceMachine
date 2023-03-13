@@ -1,0 +1,16 @@
+Bill of Materials - Sequence Odor Machine
+
+Recommended to stick with part #s
+
+1x Custom PCB (see GitHub)
+1x Teensy 4.0 w/ Pins
+2x ULN2803A (darlington array for gating valves)
+1x LTC1448CN8#PBF (digital to analog converter for mass flow controllers)
+1x ROE-1205S (DC/DC converter - 12V to 5V for DAC)
+1x 1751455 (Phoenix Contact)
+2x 1751303 (Phoenix Contact)
+1x 1751264 (Phoenix Contact)
+1x 1751248 (Phoenix Contact)
+
+Can substitute with equivalent
+

@@ -8,3 +8,4 @@ Port = ArCOMObject('COM4', 115200); %Serial port for Teensy
 Port.write(ModeByte, 'uint8'); %Write trigger byte to teensy
 
 clear Port;
+end

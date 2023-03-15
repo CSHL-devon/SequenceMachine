@@ -5,7 +5,7 @@
 % 
 % Input arguments are as follows:
 %     - Paradigm: 0 = Single odor presentation, 1 = sequence presentation.
-%     - MFC1/2: Mass flow controller values. 12-bit (0-4095) for trial by trial concentration changes 
+%     - MFC1/2: Mass flow controller values (0-1) for trial by trial concentration changes 
 %         of air dilution machines. 
 %     - FirstStimulus: The odor valve that will be opened first in the sequence (bank 1)
 %         - For the standard, 12-odor teensy 4.0 machine, the options are: 1 - 6.
@@ -20,6 +20,10 @@
 %-------------------------------------------------------------------------------------------------------
 
 function SendSequence(Paradigm, MFC1, MFC2, FirstStimulus, SecondStimulus, PreFillTime, StimulusLength, SequenceDelay)
+
+%Convert MFC values from percentage to 12-bit range (0-4095)
+MFC1 = MFC1*4095;
+MFC2 = MFC2*4095;
 
 %Check stimulus range and correct odor numbers to teensy pin assignments
 if FirstStimulus < 1 || FirstStimulus > 6
@@ -55,3 +59,4 @@ Port.write(Parameters, 'uint16');
 Response = Port.read(6, 'uint16'); %Read back parameters array to confirm receipt
 
 clear Port; %Clear the serial port Object (releases the port)
+end

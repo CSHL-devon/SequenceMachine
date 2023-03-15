@@ -32,13 +32,13 @@ void setup() {
     pinMode(ValvePins[i], OUTPUT);
   }
 
-  //Close all valves, zero MFCs, open cleaning valves
-  Initialize();
-
   //Intialize SPI
   SPI.begin();
   //Initialize the USB serial port
   Serial.begin(115200);
+  
+  //Close all valves, zero MFCs, open cleaning valves
+  Initialize();
 }
 
 void loop() {
@@ -79,7 +79,7 @@ void Initialize(){
 void ControlValves(unsigned short Parameters[], byte MFCValues[]){
   if(Parameters[0] == 0){ //No second odor
     digitalWriteFast(CleaningValvePins[0], LOW); //Close cleaning valve
-    digitalWriteFast(ValvePins[Parameters[0]], HIGH); //Open odor vial
+    digitalWriteFast(Parameters[1], HIGH); //Open odor vial
     ControlMFCs(MFCValues); //Turn on MFCs
     delay(Parameters[3]); //Prefill tube with odor
 
@@ -91,14 +91,14 @@ void ControlValves(unsigned short Parameters[], byte MFCValues[]){
     //Cleanup
     delay(50); //Cleaning valves open faster than shuttle valve closes
     ControlMFCs(0); //Zero MFCs
-    digitalWriteFast(ValvePins[Parameters[1]], LOW); //Close odor vial
+    digitalWriteFast(Parameters[1], LOW); //Close odor vial
     digitalWriteFast(CleaningValvePins[0], HIGH); //Open cleaning valve
     
   }else{ //Sequence of two odors
     digitalWriteFast(CleaningValvePins[0], LOW); //Close cleaning valves
     digitalWriteFast(CleaningValvePins[1], LOW);
-    digitalWriteFast(ValvePins[Parameters[1]], HIGH); //Open odor vials
-    digitalWriteFast(ValvePins[Parameters[2]], HIGH);
+    digitalWriteFast(Parameters[1], HIGH); //Open odor vials
+    digitalWriteFast(Parameters[2], HIGH);
     ControlMFCs(MFCValues);
     delay(Parameters[3]); //Prefill tubes with odor
 
@@ -118,8 +118,8 @@ void ControlValves(unsigned short Parameters[], byte MFCValues[]){
     //Cleanup
     delay(50); //Cleaning valves open faster than shuttle valve closes
     ControlMFCs(0);
-    digitalWriteFast(ValvePins[Parameters[1]], LOW); //Close odor vials
-    digitalWriteFast(ValvePins[Parameters[2]], LOW);
+    digitalWriteFast(Parameters[1], LOW); //Close odor vials
+    digitalWriteFast(Parameters[2], LOW);
     digitalWriteFast(CleaningValvePins[0], HIGH); //Open cleaning valves
     digitalWriteFast(CleaningValvePins[1], HIGH);
   }

@@ -1,6 +1,6 @@
 %-------------------------------------------------------------------------------------------------------
 % This function sends a stimulation sequence of two odorants to a teensy-controlled 
-% valve driver/odor machine.Relies on ArCOM libraries written by Josh Sanders 
+% valve driver/odor machine. Relies on ArCOM libraries written by Josh Sanders 
 % (https://github.com/sanworks)
 % 
 % Input arguments are as follows:
@@ -20,6 +20,8 @@
 %-------------------------------------------------------------------------------------------------------
 
 function SendSequence(Paradigm, MFC1, MFC2, FirstStimulus, SecondStimulus, PreFillTime, StimulusLength, SequenceDelay)
+
+global Port
 
 %Convert MFC values from percentage to 12-bit range (0-4095)
 MFC1 = MFC1*4095;
@@ -52,11 +54,9 @@ MFByteArray = uint8([bin2dec(MFWord(:,1:8)), bin2dec(MFWord(:,9:16)), bin2dec(MF
 Parameters = uint16([Paradigm, FirstStimPin, SecondStimPin, PreFillTime, StimulusLength, SequenceDelay]);
 
 %Send stimulation information to Teensy
-Port = ArCOMObject('COM4', 115200); %Serial port for Teensy
 Port.write(ModeByte, 'uint8');
 Port.write(MFByteArray, 'uint8');
 Port.write(Parameters, 'uint16');
 Response = Port.read(6, 'uint16'); %Read back parameters array to confirm receipt
 
-clear Port; %Clear the serial port Object (releases the port)
 end

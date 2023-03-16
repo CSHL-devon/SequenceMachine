@@ -1,5 +1,7 @@
-%Iterates through the number of vials on each bank as defined by "NumOdors."
-%"CleaningCycles" determines how many complete passes through the machine are performed.
+%This function runs a cleaning routine that simply flips back and forth
+%between the banks of the sequence machine and iterates through the number
+%of vials on each bank as defined by "NumOdors." The input:
+%"CleaningCycles" determines how man
 
 function SequenceClean(CleaningCycles, NumOdors)
 
@@ -31,6 +33,7 @@ MFByteArray = uint8([bin2dec(MFWord(:,1:8)), bin2dec(MFWord(:,9:16)), bin2dec(MF
             ModeByte = 24;
        
             %Send stimulation information to Teensy
+            %Port = ArCOMObject('COM4', 115200); %Serial port for Teensy
             Port.write(ModeByte, 'uint8');
             Port.write(MFByteArray, 'uint8');
             Port.write(Parameters, 'uint16');

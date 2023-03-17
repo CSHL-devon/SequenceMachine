@@ -26,7 +26,7 @@ MFByteArray = uint8([bin2dec(MFWord(:,1:8)), bin2dec(MFWord(:,9:16)), bin2dec(MF
             end
        
             %Prioritize cleaning outputs
-            Parameters = uint16([1, FirstStimPin, SecondStimPin, 100, 4000, 100]);
+            Parameters = uint16([1, FirstStimPin, SecondStimPin, 100, 5000, 100]);
             
             ModeByte = 24;
        

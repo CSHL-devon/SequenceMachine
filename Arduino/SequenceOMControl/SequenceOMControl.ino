@@ -1,11 +1,23 @@
-/* 
+/*
+---------------------------------------------------------------------------------------
+This file is part of the SequenceMachine repository
+Devon Cowan, CSHL 2023
+---------------------------------------------------------------------------------------
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, version 3.
+
+This program is distributed  WITHOUT ANY WARRANTY and without even the
+implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>
 ---------------------------------------------------------------------------------------
 This sketch is for running a teensy(4.0)-based olfactometer that presents a sequence
 of two odorants in rapid succession from two different banks of odorants. If odor 2 is
 defined at the input as "99," it will behave as if only odor 1 exists (as a normal 
 olfactometer). It takes serial input from Matlab via ArCOM (https://github.com/sanworks).
-
-Devon Cowan, CSHL 2023 
 ---------------------------------------------------------------------------------------
 */
 

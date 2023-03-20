@@ -1,6 +1,28 @@
-%Searches for the port that the teensy controlling the odor machine is 
-%connected to and sets a "Port" global that is referenced by the odor 
-%machine controlling functions
+%{
+-------------------------------------------------------------------------------------------------------
+This file is part of the SequenceMachine repository
+Devon Cowan, CSHL 2023
+-------------------------------------------------------------------------------------------------------
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, version 3.
+
+This program is distributed  WITHOUT ANY WARRANTY and without even the
+implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>
+%}
+
+%{
+-------------------------------------------------------------------------------------------------------
+Searches for the port that the teensy controlling the odor machine is 
+connected to and sets a "Port" global that is referenced by the odor 
+machine controlling functions
+-------------------------------------------------------------------------------------------------------
+%}
 
 function [ConnectMsg] = InitializeOM
 

@@ -1,23 +1,42 @@
-%-------------------------------------------------------------------------------------------------------
-% This function sends a stimulation sequence of two odorants to a teensy-controlled 
-% valve driver/odor machine. Relies on ArCOM libraries written by Josh Sanders 
-% (https://github.com/sanworks)
-% 
-% Input arguments are as follows:
-%     - Paradigm: 0 = Single odor presentation, 1 = sequence presentation.
-%     - MFC1/2: Mass flow controller values (0-1) for trial by trial concentration changes 
-%         of air dilution machines. Set to 0 if no MFCs in use.
-%     - FirstStimulus: The odor valve that will be opened first in the sequence (bank 1)
-%         - For the standard, 12-odor teensy 4.0 machine, the options are: 1 - 6.
-%     - SecondStimulus: The odor valve that will be opened second in the sequence (bank 2)
-%         - For the standard, 12-odor teensy 4.0 machine, the options are: 7 - 12.
-%     - PrefillTime: Time the odor is allowed to flood the tubes leading to the final valve 
-%         prior to presentation to the animal.
-%     - StimulusLength: Time final valve is open and odorant is being presented to the animal.
-%     - SequenceDelay: Time between the end of the first odor presentation and the start of the second.
-%
-% Devon Cowan, CSHL 2023
-%-------------------------------------------------------------------------------------------------------
+
+%{
+-------------------------------------------------------------------------------------------------------
+This file is part of the SequenceMachine repository
+Devon Cowan, CSHL 2023
+-------------------------------------------------------------------------------------------------------
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, version 3.
+
+This program is distributed  WITHOUT ANY WARRANTY and without even the
+implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>
+%}
+
+%{
+-------------------------------------------------------------------------------------------------------
+ This function sends a stimulation sequence of two odorants to a teensy-controlled 
+ valve driver/odor machine. Relies on ArCOM libraries written by Josh Sanders 
+ (https://github.com/sanworks)
+ 
+ Input arguments are as follows:
+     - Paradigm: 0 = Single odor presentation, 1 = sequence presentation.
+     - MFC1/2: Mass flow controller values (0-1) for trial by trial concentration changes 
+         of air dilution machines. Set to 0 if no MFCs in use.
+     - FirstStimulus: The odor valve that will be opened first in the sequence (bank 1)
+         - For the standard, 12-odor teensy 4.0 machine, the options are: 1 - 6.
+     - SecondStimulus: The odor valve that will be opened second in the sequence (bank 2)
+         - For the standard, 12-odor teensy 4.0 machine, the options are: 7 - 12.
+     - PrefillTime: Time the odor is allowed to flood the tubes leading to the final valve 
+         prior to presentation to the animal.
+     - StimulusLength: Time final valve is open and odorant is being presented to the animal.
+     - SequenceDelay: Time between the end of the first odor presentation and the start of the second.
+-------------------------------------------------------------------------------------------------------
+%}
 
 function SendSequence(Paradigm, MFC1, MFC2, FirstStimulus, SecondStimulus, PreFillTime, StimulusLength, SequenceDelay)
 

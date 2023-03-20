@@ -21,11 +21,11 @@ Matlab
 
 ## The Problem
 
-The general logic of a typical olfactomer/odor machine in our lab is something like this:
+The logic of a typical olfactomer/odor machine in our lab is something like this:
 
 ![](Docs/Images/OMCartoon.png)
 
-A valve opens to allow air to enter a vial containing an odorant and becoming itself odorized. This valve is left open for as long as it takes for this odorized air to travel to a final gating valve near the animal. This allows the majority of the machine to be remote from the animal's face while keeping the delay short between the intended stimulus time and the actual time odorant took to reach the animal's nose. It also allows the odorized air in the system to come to a (roughly) stable concentration before it's presented.
+A valve opens to allow air to enter a vial containing an odorant and becomes itself odorized. This valve is left open for as long as it takes for this odorized air to travel to a final gating valve near the animal. This allows the majority of the machine to be remote from the animal's face while keeping the delay short between the intended stimulus time and the actual time odorant took to reach the animal's nose. It also allows the odorized air in the system to come to a (roughly) stable concentration before it's presented.
 
 This method works fine for single odor presentations since you can program a long enough inter-trial interval into your experiment to flush out the common output tubing before flooding it with odorant again. But what if your experiment calls for two odorants? What if the time between the presentations of those two odorants needs to be short? Then your tubing logic needs to look like this:
 
@@ -41,7 +41,7 @@ The thinking here was to be able to control the two most common types of odor ma
 
 Oil dilution machines are smaller, simpler and cheaper to build, but the concentrations in the vials change over time as they are used. The rate at which this happens is dependent on the odorant. This means new odorants need to be made frequently if concentration stability is important. Our experimental use-case for the "sequence" machine depends more on identity than concentration, so oil dilution was chosen for the example machine in this repo.
 
-Air dilution machines have more points of failure, require more maintainance and are more expensive, but since the vials themselves contain pure odorant, the concentration depends mostly on how much air you put through it, and how much air you then dilute that in. This is usually more consistent, at least over the timecourse of an experiment and assuming your flow regulation is on point.
+Air dilution machines have more points of failure, require more maintainance and are more expensive, but since the vials themselves contain pure odorant, the concentration depends mostly on how much air you put through it, and how much air you then dilute that in. This is usually more consistent, at least over the timecourse of an experiment, assuming your flow regulation is on point.
 
 ### The Hardware
 
@@ -61,7 +61,7 @@ The board outputs are marked with the bank/valve number to help you organize bui
 
 - INSERT IMAGE HERE
 
-I'll include the bill of materials for this particular machine as a referece, but this is not how it MUST be done. Notice I've only used 4 odorants in each bank. Just because the controller can do 6 per side, doesn't mean you need to build the machine that way. More odorants = more cross-contamination. 
+I'll include the bill of materials for this particular machine as a referece, but this is not how it must be done. Notice I've only used 4 odorants in each bank. Just because the controller can do 6 per side, doesn't mean you need to build the machine that way. More odorants = more cross-contamination. 
 
 You can also simply build one side of this machine and use it for single odor presentations (or build the dual machine but only use one side). Just set the "Paradigm" input of the "SendSequence" function to 0 and it will only control valves on bank 1.
 
@@ -85,7 +85,7 @@ Don't leave vials filled with odorant in the machine when not in use. You won't 
 
 #### Final Valve
 
-The final output valve selects between clean air and odorant, shifting whichever is active to the animal, and whichever in inactive to exhaust. It can be purchased, or made in a few different ways, but it should always be an isolation valve and THE WHETTED SURFACES SHOULD ALWAYS BE TEFLON/PTFE. 
+The final output valve selects between clean air and odorized air, directing whichever is active to the animal, and whichever in inactive to exhaust. It can be purchased, or made in a few different ways, but it should always be an isolation valve and THE WHETTED SURFACES SHOULD ALWAYS BE TEFLON/PTFE. 
 
 We sometimes use the NResearch dual 3-way Shuttle valve, which is an all-in-one solution, but there are some issues with it. It's very expensive (~$200+) and gets more so every year. It also has a large pressure transient during the switch which needs to be buffered out with an air dilution (at least 1:1) AFTER the valve. In my experience, this is good practice for any solution, but especially necessary for this valve.
 

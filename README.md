@@ -7,6 +7,8 @@ A simple, Teensy(4.0) based olfactomer for producing an accurately timed, closel
 
 This is really just a programmable solenoid valve driver. Fortunately, for most olfaction experiments all you really need is to flip a few valves on and off in the correct sequence and with the correct timing. This is a very un-fancy way of streamlining that process, especially for labs building their first rig.
 
+CAD for the structural elements, and 3D-printed parts was done in Inventor. In addition to the inventor parts, I've also included the files you actually need to laser-cut and 3D-print (PDFs and .STLs respectively) if you just want to make what I've provided without modification.
+
 If you see something dumb in this repository and have a way to make it less so, say something. I am not an electrical engineer, nor am I a programmer. I'm just a tech trying to cope with the aftermath of a misspent youth. I will welcome your feedback. Probably.
 
 ### Dependencies
@@ -18,6 +20,7 @@ Matlab
 
 [ArCOM](https://github.com/sanworks/ArCOM)
 - Serial wrapper for Matlab/Arduino communication written by Josh Sanders
+- The necessary files are already copied in this repository
 
 ## The Problem
 

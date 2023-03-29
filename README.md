@@ -28,19 +28,19 @@ The logic of a typical olfactomer/odor machine in our lab is something like this
 
 ![](Docs/Images/OMCartoon.png)
 
-A valve opens to allow air to enter a vial containing an odorant and becomes itself odorized. This valve is left open for as long as it takes for this odorized air to travel to a final gating valve near the animal. This allows the majority of the machine to be remote from the animal's face while keeping the delay short between the intended stimulus time and the actual time odorant took to reach the animal's nose. It also allows the odorized air in the system to come to a (roughly) stable concentration before it's presented.
+A valve opens to allow air to enter a vial containing an odorant and becomes itself, odorized. This valve is left open for as long as it takes for this odorized air to travel to a final gating (shuttle) valve near the animal. This allows the majority of the machine to be remote from the animal's face while keeping the delay short between the intended stimulus time and the actual time odorant took to reach the animal's nose. It also allows the odorized air in the system to come to a (roughly) stable concentration before it's presented.
 
 This method works fine for single odor presentations since you can program a long enough inter-trial interval into your experiment to flush out the common output tubing before flooding it with odorant again. But what if your experiment calls for two odorants? What if the time between the presentations of those two odorants needs to be short? Then your tubing logic needs to look like this:
 
 ![](Docs/Images/SequenceOMCartoon.png)
 
-It's pretty much just two odor machines. We call that an anti-climax. In any case, you need something to control the timing of the pre-filling, stimulus time, delay between the odorants, etc. and the system in this here repository does jsut that.
+It's pretty much just two odor machines. Lame. In any case, you need something to control the timing of the pre-filling, stimulus time, delay between the odorants, etc. and the system in this repository does just that.
 
 ## The Business
 
 ### What is this good for? 
 
-The thinking here was to be able to control the two most common types of odor machine we use in the lab. That means multi-odor oil dilution machines that follow the simple tubing/valve logic similar to the above, as well as air dilution machines that use mass flow controllers to vary concentration on a trial-by-trial basis.
+The thinking here was to be able to control the two most common types of odor machine we use in the lab. That means multi-odor oil dilution machines that follow the simple tubing/valve logic similar to the above schematic, as well as air dilution machines that use mass flow controllers to vary concentration on a trial-by-trial basis.
 
 Oil dilution machines are smaller, simpler and cheaper to build, but the concentrations in the vials change over time as they are used. The rate at which this happens is dependent on the odorant. This means new odorants need to be made frequently if concentration stability is important. Our experimental use-case for the "sequence" machine depends more on identity than concentration, so oil dilution was chosen for the example machine in this repo.
 
@@ -54,7 +54,7 @@ I tried to keep this project as simple to build as possible. All electronic comp
 
 Speaking of LEDs, those are simply there for visual feedback of what the machine is doing. This is helpful for identifying mistakes in your valve/tubing logic (what the machine says it's doing vs what's actually happening). It also serves as confirmation that the Teensy actually received the correct serial information. I haven't seen it fail to receive the correct sequence once initialization succeeds, but nobody likes to put their faith in a black box.
 
-The valve drivers are just plain old ULN2803A darlington arrays. If you're not familiar electronics, these are pretty much just electronic switches. One lead of the valve is always connected to +12V and all the transistor does is gate its access to ground on the other lead. That's why on this machine you see a gated output labeled for each possible valve in the system (16 total), but only 8 terminals marked +12V. All valves are connected to the same +12V bus, so there's no need to separate each wire and those dual-level, space saving screw terminals are expensive. In priciple, you could twist every valve power lead together and connect it to a single +12V source.
+The valve drivers are just plain old ULN2803A darlington arrays. If you're not familiar electronics, these are pretty much just electronic switches with some extra sauce for use with solenoids. One lead of the valve is always connected to +12V and all the transistor does is gate its access to ground on the other lead. That's why on this machine you see a gated output labeled for each possible valve in the system (16 total), but only 8 terminals marked +12V. All valves are connected to the same +12V bus, so there's no need to separate each wire and those dual-level, space-saving screw terminals are expensive. In priciple, you could twist every valve power lead together and connect it to a single +12V source.
 
 The most expensive component (other than the Teensy) on the board is the DAC. There are not many 8-DIP, dual output, 12-BIT, through hole DACs around (or in demand), so they're pricey as electronics components go. However, if you're not using mass flow controllers, you can completely omit this part. The teensy will still control regular valves just fine.
 
@@ -78,7 +78,7 @@ That's it. The Teensy will then handle the predetermined sequence of events.
 
 There is a simple Matlab GUI called "SequenceControl" that can be used for initializing, single trial sequence presentations and post-experiment cleaning (which you should definitely be doing and for as long as possible) if you don't want to call those functions from the command window. 
 
-It's likely that the biggest issues you'll run into are with OS/Matlab related serial handling. Windows especially has some odd behavior when it comes to properly attaching and releasing serial ports, in my experience. This almost exclusively affects the initialization step, however, so once that has succeeded the serial communication is stable.
+It's likely that the biggest issues you'll run into are with OS/Matlab related serial handling. Windows especially has some odd behavior when it comes to properly attaching and releasing serial ports, in my experience. However, this almost exclusively affects the initialization step, so once that has succeeded the serial communication is stable.
 
 ### Notes
 

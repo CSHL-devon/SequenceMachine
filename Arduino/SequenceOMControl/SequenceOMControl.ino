@@ -15,9 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
 ---------------------------------------------------------------------------------------
 This sketch is for running a teensy(4.0)-based olfactometer that presents a sequence
-of two odorants in rapid succession from two different banks of odorants. If odor 2 is
-defined at the input as "99," it will behave as if only odor 1 exists (as a normal 
-olfactometer). It takes serial input from Matlab via ArCOM (https://github.com/sanworks).
+of two odorants in rapid succession from two different banks of odorants. It takes 
+serial input from Matlab via ArCOM (https://github.com/sanworks).
 ---------------------------------------------------------------------------------------
 */
 

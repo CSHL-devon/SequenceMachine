@@ -4247,8 +4247,8 @@
     (pin "7" (uuid fa5521e0-b4e5-4189-bca2-5200c38f11d8))
     (pin "8" (uuid 70e1a453-d3ce-4ba6-b8a2-568a9e3bf9c2))
     (pin "9" (uuid 6f50eecb-85a9-455a-bfb9-fdd28e2b6d0d))
-    (pin "GND" (uuid 647724f0-b51f-4327-aae8-188551205478))
-    (pin "GND" (uuid 647724f0-b51f-4327-aae8-188551205478))
+    (pin "GND" (uuid 647724f0-b51f-4327-aae8-188551205479))
+    (pin "GND" (uuid 647724f0-b51f-4327-aae8-188551205479))
     (pin "Vin" (uuid 673494ba-c66f-479c-bcff-36b01436401d))
   )
 

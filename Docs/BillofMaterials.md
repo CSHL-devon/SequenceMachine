@@ -7,14 +7,13 @@
 
 1x Custom PCB (see GitHub)  
 1x Teensy 4.0 w/ Pins  
-2x ULN2803A (darlington array for gating valves)  
-1x LTC1448CN8#PBF (Can be omitted if not using mass flow controllers)  
-1x ROE-1205S (DC/DC converter - 12V to 5V for DAC)  
-1x 1751455 (Phoenix Contact)  
-2x 1751303 (Phoenix Contact)  
-1x 1751264 (Phoenix Contact)  
-1x 1751248 (Phoenix Contact)
-
+2x 8P Darlington array (Digi-Key# 497-2356-5-ND)  
+1x 12-Bit DAC (Can be omitted if not using mass flow controllers) (Digi-Key# LTC1448CN8#PBF-ND)  
+1x DC/DC converter (12V to 5V for DAC) (Digi-Key# ROE-1205S-ND)  
+1x 8x2P Screw terminal block (Digi-Key# 277-17189-ND)  
+2x 8P Screw terminal block (Digi-Key# 277-5792-ND)  
+1x 4P Screw terminal block (Digi-Key# 277-5744-ND)  
+1x 2P Screw terminal block (Digi-Key# 277-5719-ND)
 
 #### Part #s that you can substitute for equivalent value parts (original part #s included for reference)
 
@@ -26,6 +25,8 @@
 1x  10uF ceramic capacitor (2.54mm leg spacing) (Digi-Key# 445-180817-1-ND)  
 2x  330pF ceramic capacitor (2.54mm leg spacing) (Digi-Key# 445-180519-1-ND)  
 1x  22uH radial inductor (5.0 mm leg spacing) (Digi-Key# RLB0914-220KL-ND)  
+1x 8P IC socket (Digi-Key# ED90032-ND)  
+2x 18P IC socket (Digi-Key# ED90051-ND)  
 1x  USB-A to micro B cable (Digi-Key# AE10342-ND)  
 1x  12V power supply (Min 3A and not a complete piece of crap. The 5V converter can do work, but don't feed it terrible power from a cheap wall wart)
 

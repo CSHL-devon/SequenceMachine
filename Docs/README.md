@@ -3,6 +3,8 @@
 
 A simple, Teensy(4.0) based olfactomer for producing an accurately timed, closely spaced sequence of two odorants...or one, your call.
 
+![](Docs/Images/SequenceBoard.png)
+
 ## General
 
 This is really just a programmable solenoid valve driver. Fortunately, for most olfaction experiments all you really need is to flip a few valves on and off in the correct sequence and with the correct timing. This is a very un-fancy way of streamlining that process, especially for labs building their first rig.
@@ -89,3 +91,15 @@ The final output valve selects between clean air and odorant, shifting whichever
 We sometimes use the NResearch dual 3-way Shuttle valve, which is an all-in-one solution, but there are some issues with it. It's very expensive (~$200+) and gets more so every year. It also has a large pressure transient during the switch which needs to be buffered out with an air dilution (at least 1:1) AFTER the valve. In my experience, this is good practice for any solution, but especially necessary for this valve.
 
 You can also use two 3-way valves and just setup your tubing logic to do the exact same thing as the shuttle valve above. Likewise you could also do it with four 2-way valves (with two of them either electronically inverted, or using "normally open" variants), although isolation valve actuation times can be a bit sloppy, so the more of them you have, the more likely they will get out of sync and the bigger your transients will be.
+
+#### Build order (if copying mine)
+
+- Resistors
+- IC sockets
+- Teensy
+- Capacitors
+- Short Screw Terminals
+- LEDs
+- DC/DC Converter
+- Inductor
+- Tall Screw Terminal

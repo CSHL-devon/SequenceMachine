@@ -25,9 +25,10 @@
 1x  10uF ceramic capacitor (2.54mm leg spacing) (Digi-Key# 445-180817-1-ND)  
 2x  330pF ceramic capacitor (2.54mm leg spacing) (Digi-Key# 445-180519-1-ND)  
 1x  22uH radial inductor (5.0 mm leg spacing) (Digi-Key# RLB0914-220KL-ND)  
-1x 8P IC socket (Digi-Key# ED90032-ND)  
-2x 18P IC socket (Digi-Key# ED90051-ND)  
+1x  8P IC socket (Digi-Key# ED90032-ND)  
+2x  18P IC socket (Digi-Key# ED90051-ND)  
 1x  USB-A to micro B cable (Digi-Key# AE10342-ND)  
+4x  Rubber Bump-on (optional feet for enclosure) (Digi-Key# SJ5523-9-ND)
 1x  12V power supply (Min 3A and not a complete piece of crap. The 5V converter can do work, but don't feed it terrible power from a cheap wall wart)
 
 ### Example Machine

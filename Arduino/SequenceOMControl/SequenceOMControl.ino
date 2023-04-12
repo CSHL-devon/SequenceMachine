@@ -28,6 +28,7 @@ ArCOM OMSerial(Serial); //Create ArCOM wrapper for SerialUSB
 const unsigned int ChipSelect = 10; //Pin to select 12-bit DAC for SPI communication
 byte ModeByte = 0;
 byte MFCValues[3] = {0}; //Mass flow controller byte array
+byte MFCInitialization[3] = {0}; //Constant zero MFC value array for use in initialization steps
 unsigned short Parameters[6] = {0}; //Valve parameter array
 
 unsigned int ValvePins[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 14, 15, 16, 17, 18, 19};
@@ -81,7 +82,7 @@ void Initialize(){
     digitalWriteFast(ValvePins[i], LOW);
   }
   //Zero MFCs
-  ControlMFCs(0);
+  ControlMFCs(MFCInitialization);
   //Open Cleaning Valves
   digitalWriteFast(CleaningValvePins[0], HIGH);
   digitalWriteFast(CleaningValvePins[1], HIGH);
@@ -101,7 +102,7 @@ void ControlValves(unsigned short Parameters[], byte MFCValues[]){
 
     //Cleanup
     delay(50); //Cleaning valves open faster than shuttle valve closes
-    ControlMFCs(0); //Zero MFCs
+    ControlMFCs(MFCInitialization); //Zero MFCs
     digitalWriteFast(Parameters[1], LOW); //Close odor vial
     digitalWriteFast(CleaningValvePins[0], HIGH); //Open cleaning valve
     
@@ -128,7 +129,7 @@ void ControlValves(unsigned short Parameters[], byte MFCValues[]){
 
     //Cleanup
     delay(50); //Cleaning valves open faster than shuttle valve closes
-    ControlMFCs(0);
+    ControlMFCs(MFCInitialization);
     digitalWriteFast(Parameters[1], LOW); //Close odor vials
     digitalWriteFast(Parameters[2], LOW);
     digitalWriteFast(CleaningValvePins[0], HIGH); //Open cleaning valves

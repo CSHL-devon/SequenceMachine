@@ -1,4 +1,4 @@
-20915300671120466
+20916983891429146
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -80870,6 +80870,13 @@ Bourns RLB0914-220KL
 0
 2
 2
+SequenceOMFootprints
+POT_3362P
+
+3362P-1-104LF 
+0
+3
+3
 SequenceOMFootprints
 Recom ROE-1205S
 

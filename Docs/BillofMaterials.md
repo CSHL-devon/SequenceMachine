@@ -7,9 +7,11 @@
 
 1x Custom PCB (see GitHub)  
 1x Teensy 4.0 w/ Pins  
+
 2x 8P Darlington array (Digi-Key# 497-2356-5-ND)  
 1x 12-Bit DAC (Can be omitted if not using mass flow controllers) (Digi-Key# LTC1448CN8#PBF-ND)  
 1x DC/DC converter (12V to 5V for DAC) (Digi-Key# ROE-1205S-ND)  
+1x 1K Trimmer (Digi-Key# 3362P-102LF-ND)  
 1x 8x2P Screw terminal block (Digi-Key# 277-17189-ND)  
 2x 8P Screw terminal block (Digi-Key# 277-5792-ND)  
 1x 4P Screw terminal block (Digi-Key# 277-5744-ND)  
@@ -17,14 +19,17 @@
 
 #### Part #s that you can substitute for equivalent value parts (original part #s included for reference)
 
-16x 1/8W 39 Ohm resistors (Digi-Key# CF18JT39R0CT-ND)  
+16x 1/8W 120 Ohm resistors (Digi-Key# CF18JT39R0CT-ND) (Dependent on LED choice. For the LEDs listed here, you could drop the resistance by half, or more if you like them really bright. I just want an indicator and don't like eye-searing lights on everything, so I overspec the resistor).  
+1x  1/4W 10K Ohm resistor (Digi-Key# 10.0KXBK-ND)
+1x  1/4W 10 Ohm resistor (Digi-Key# 10.0XBK-ND)  
+1x  1K Trimmer (Digi-Key# 3362P-102LF-ND)  
 12x 3mm Yellow LED (Digi-Key# 732-5010-ND)  
 2x  3mm Green LED (Digi-Key# 732-5008-ND)  
 2x  3mm Red LED (Digi-Key# 732-5006-ND)  
 3x  0.1uF ceramic capacitor (2.54mm leg spacing) (Digi-Key# 445-173145-1-ND)  
 1x  10uF ceramic capacitor (2.54mm leg spacing) (Digi-Key# 445-180817-1-ND)  
-2x  330pF ceramic capacitor (2.54mm leg spacing) (Digi-Key# 445-180519-1-ND)  
-1x  22uH radial inductor (5.0 mm leg spacing) (Digi-Key# RLB0914-220KL-ND)  
+1x  330pF ceramic capacitor (2.54mm leg spacing) (Digi-Key# 445-180519-1-ND)  
+1x  22uH radial inductor (2.0 mm leg spacing) (Digi-Key# 811-2026-ND)  
 1x  8P IC socket (Digi-Key# ED90032-ND)  
 2x  18P IC socket (Digi-Key# ED90051-ND)  
 1x  USB-A to micro B cable (Digi-Key# AE10342-ND)  

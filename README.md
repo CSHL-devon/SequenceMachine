@@ -31,7 +31,7 @@ This method works fine for single odor presentations since you can program a lon
 
 ![](Docs/Images/SequenceOMCartoon.png)
 
-It's pretty much just two odor machines. We call that an anti-climax. In any case, you need something to control the timing of the pre-filling, stimulus time, delay between the odorants, etc. and the system in this here repository does jsut that.
+It's pretty much just two odor machines. We call that an anti-climax. In any case, you need something to control the timing of the pre-filling, stimulus time, delay between the odorants, etc. and the system in this here repository does just that.
 
 ## The Business
 
@@ -67,9 +67,9 @@ You can also simply build one side of this machine and use it for single odor pr
 
 It's pretty simple to massage the control functions into whatever Matlab code is running your experiment. Once you've built the hardware and burned the firmware to the Teensy, it goes like this:
 
-- Step 1: The "InitializeOM" function always needs to be run first. This will find and connect to the Teensy and set the serial port for the other functions.
+- Step 1: The "InitializeOM" function always needs to be run first and only once per MatLab session (don't call it every time you send a new sequence to the machine). This will find and connect to the Teensy and set the serial port for the other functions.
 - Step 2: Call the "SendSequence" function. This will load the mass flow controller values and the timing sequence into the Teensy, but will not activate the machine. The inputs are defined in the comments.
-- Step 3: Call the "ActivateOM" function to actually trigger the machine.
+- Step 3: Call the "ActivateOM" function to actually trigger the machine serially. If you don't want to use a serial trigger, or are interfacing with another device via TTL, then by default you can also use pin 23 on the "GPIO" terminals to trigger the machine with a 3.3V TTL (**NOT 5V TOLERANT! BE SURE TO STEP DOWN IF YOUR DEVICE IS 5V!**). If you use this pin to trigger, I'd suggest also using a pull-down resistor to prevent mis-fires (just jump the pin 23 output to the ground output with an appropriate resistor).
 
 That's it. The Teensy will then handle the predetermined sequence of events.
 
@@ -82,6 +82,14 @@ It's likely that the biggest issues you'll run into are with OS/Matlab related s
 #### General
 
 Don't leave vials filled with odorant in the machine when not in use. You won't want them there anyway when you're running the long cleaning routing. If you have access to pure ethanol, I highly suggest putting some vials with it in the machine when you run your long cleaning. Isopropanol may work as well depending on what materials you chose for the machine. It's hostile to some plastics like Kynar, which is found in the check-valves we use often in these things.
+
+The "GPIO" pins are available for any functionality you want to add in to the machine. By default, pin 23 is used for external triggering of the sequence via 3.3V TTL. These GPIO pins are 3.3V logic ONLY - **they are not 5V tolerant**.
+
+In my example machine, the Teensy has been socketed. This is not necessary since they don't really go bad. There's enough room in the enclosure cutout to accomodate socketing if you really want to, but I'd just solder the Teensy directly to the board.
+
+#### Power supply and DAC/Mass Flow Controllers
+
+The power on-board requires a single 12V power supply. There is a 5V DCDC converter on-board that powers the digital to analog converter that then provides the control-voltage output for mass flow controllers (or any other 0-5V controlled device). This 5V source also serves as the voltage reference for the DAC, which we want to be as close to true 5V as possible, but how close you get to 5V depends on the 12V supply that you use to power the board. I've added a divider that's controlled by the blue trimmer that you can use to dial in the correct 5V reference value if it's too high. If it's too low, use a different 12V supply, or if your 12V supply has a trimmer, use it to adjust your output until you're both within spec for your valves and can dial in the 5V reference signal. If you're not using MFCs, you don't really need to worry about any of this.
 
 #### Final Valve
 
@@ -96,9 +104,10 @@ You can also use two 3-way valves and just setup your tubing logic to do the exa
 - Resistors
 - IC sockets
 - Teensy
+- Trimmer
 - Capacitors
+- Inductor
 - Short Screw Terminals
 - LEDs
 - DC/DC Converter
-- Inductor
 - Tall Screw Terminal

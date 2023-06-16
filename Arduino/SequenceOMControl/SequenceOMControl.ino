@@ -35,10 +35,13 @@ unsigned int ValvePins[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 14, 15, 16, 17, 18, 19
 unsigned int NumValvePins = 16;
 unsigned int CleaningValvePins[] = {18, 19};
 unsigned int ShuttleValvePins[] = {16, 17};
+unsigned int WireTrigger = 23;
+unsigned int Triggered = 0;
 
 void setup() {  
   //Set SPI pin mode
   pinMode(ChipSelect, OUTPUT);
+  pinMode(WireTrigger, INPUT);
   //Set valve control pins as outputs
   for (unsigned int i = 0; i < NumValvePins; i++){
     pinMode(ValvePins[i], OUTPUT);
@@ -72,6 +75,12 @@ void loop() {
         //Execute odor 66
         ControlValves(Parameters, MFCValues);
         break;
+    }
+  }
+  else if (digitalRead(WireTrigger) == HIGH){ //Check pin 23 for TTL trigger if not using serial trigger
+    if (Triggered == 0){ //Prevent re-triggering if wire stays high
+      Triggered = 1;
+      ControlValves(Parameters, MFCValues);
     }
   }
 }
@@ -135,6 +144,7 @@ void ControlValves(unsigned short Parameters[], byte MFCValues[]){
     digitalWriteFast(CleaningValvePins[0], HIGH); //Open cleaning valves
     digitalWriteFast(CleaningValvePins[1], HIGH);
   }
+  Triggered = 0; //Reset triggered status
 }
 
 void ControlMFCs(byte MFCValues[]){

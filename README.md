@@ -7,7 +7,7 @@ A simple, Teensy(4.0) based olfactomer for producing an accurately timed, closel
 
 ## General
 
-This is really just a programmable solenoid valve driver. Fortunately, for most olfaction experiments all you really need is to flip a few valves on and off in the correct sequence and with the correct timing. This is a very un-fancy way of streamlining that process, especially for labs building their first rig.
+This is really just a programmable solenoid valve driver. Fortunately, for most olfaction experiments all you really need to do is flip a few valves on and off in the correct sequence and with the correct timing. This is a very un-fancy way of streamlining that process, especially for labs building their first rig.
 
 If you see something dumb in this repository and have a way to make it less so, say something. I am not an electrical engineer, nor am I a programmer. I'm just a tech trying to cope with the aftermath of a misspent youth. I will welcome your feedback. Probably.
 
@@ -31,7 +31,7 @@ This method works fine for single odor presentations since you can program a lon
 
 ![](Docs/Images/SequenceOMCartoon.png)
 
-It's pretty much just two odor machines. We call that an anti-climax. In any case, you need something to control the timing of the pre-filling, stimulus time, delay between the odorants, etc. and the system in this here repository does just that.
+It's pretty much just two odor machines. In any case, you need something to control the timing of the pre-filling, stimulus time, delay between the odorants, etc. and the system in this here repository does just that.
 
 ## The Business
 
@@ -57,9 +57,9 @@ The most expensive component (other than the Teensy) on the board is the DAC. Th
 
 ### How does it work?
 
-The board outputs are marked with the bank/valve number to help you organize building a machine around it. This is an example of the simplest (in terms of valve/tubing logic) version of a dual-bank "sequence" setup that you can build:
+The board outputs are marked with the bank/valve number to help you organize building a machine around it. This is an example of the simplest (in terms of valve/tubing logic) version of a dual-bank "sequence" setup that you can build (shown without tubing for simplicity):
 
-- INSERT IMAGE HERE
+![](Docs/Images/SequenceOM.png)
 
 I'll include the bill of materials for this particular machine as a referece, but this is not how it MUST be done. Notice I've only used 4 odorants in each bank. Just because the controller can do 6 per side, doesn't mean you need to build the machine that way. More odorants = more cross-contamination. 
 
@@ -81,7 +81,13 @@ It's likely that the biggest issues you'll run into are with OS/Matlab related s
 
 #### General
 
+All air inputs to the machine should come from a common line/regulator. If there are pressure changes, you want all the parts of the machine to change pressure together so that the relative pressures/dilutions remain the same(ish).
+
 Don't leave vials filled with odorant in the machine when not in use. You won't want them there anyway when you're running the long cleaning routing. If you have access to pure ethanol, I highly suggest putting some vials with it in the machine when you run your long cleaning. Isopropanol may work as well depending on what materials you chose for the machine. It's hostile to some plastics like Kynar, which is found in the check-valves we use often in these things.
+
+The example machine has the dilution/balance flowmeters remote from the main construction. This maintains shorter presentation latencies if the machine needs to be outside the enclosure, or there are space contraints. You could simply attach those flowmeters to the frame of the machine in the same way as the input flowmeters if you have the space/conditions to put the machine close to the animal (ideal). Remember that at 1LPM you could introduce latencies upwards of 500-600ms from final valve click to mouse for every meter of 1/8"ID tubing between the two.
+
+The firmware for the Teensy uses delay() calls for the timing in the stimulus funtion. I did this for simplicity and because there's nothing in the main loop that needs to continue to spin while stimulus presentation is running. If you patch the main loop with new functionality, or use the GPIO in ways that requires it be spinning, you should switch the timing scheme to use millis(). Just be sure to account for potential rollover of the millis() timer.
 
 The "GPIO" pins are available for any functionality you want to add in to the machine. By default, pin 23 is used for external triggering of the sequence via 3.3V TTL. These GPIO pins are 3.3V logic ONLY - **they are not 5V tolerant**.
 
@@ -95,11 +101,11 @@ The power on-board requires a single 12V power supply. There is a 5V DCDC conver
 
 The final output valve selects between clean air and odorant, shifting whichever is active to the animal, and whichever in inactive to exhaust. It can be purchased, or made in a few different ways, but it should always be an isolation valve and THE WHETTED SURFACES SHOULD ALWAYS BE TEFLON/PTFE. 
 
-We sometimes use the NResearch dual 3-way Shuttle valve, which is an all-in-one solution, but there are some issues with it. It's very expensive (~$200+) and gets more so every year. It also has a large pressure transient during the switch which needs to be buffered out with an air dilution (at least 1:1) AFTER the valve. In my experience, this is good practice for any solution, but especially necessary for this valve.
+We sometimes use the NResearch dual 3-way Shuttle valve, which is an all-in-one solution, but there are some issues with it. It's very expensive (~$200+) and gets more so every year. It also has a large pressure transient during the switch which needs to be buffered with an air dilution (at LEAST 1:1) AFTER the valve. In my experience, this is good practice for any solution, but especially necessary for this valve.
 
 You can also use two 3-way valves and just setup your tubing logic to do the exact same thing as the shuttle valve above. Likewise you could also do it with four 2-way valves (with two of them either electronically inverted, or using "normally open" variants), although isolation valve actuation times can be a bit sloppy, so the more of them you have, the more likely they will get out of sync and the bigger your transients will be.
 
-#### Build order (if copying mine)
+#### PCB build order
 
 - Resistors
 - IC sockets

@@ -42,7 +42,7 @@ Note: This can absolutely be done cheaper, but this example is a good balance of
 
 #### Structural
 
-We have a laser cutter at the lab. If you don't, and you want to build this exact machine you'll need to hire those parts out, or fabricate them some other way. The files for the two laser cut acrylic plates are included in Docs. 
+We have a laser cutter and 3d-Printer at the lab. If you don't, and you want to build this exact machine you'll need to hire those parts out, or fabricate them some other way. The files for the two laser cut acrylic plates and any 3d-Printed parts are included in Docs. 
 
 4x  1" (25mm) aluminum framing rail, 12" (30cm) in length (McMaster-Carr# 47065T101)  
 2x  1" (25mm) aluminum framing rail, 6" (15cm) in length (McMaster-Carr# 47065T101)  
@@ -52,7 +52,8 @@ We have a laser cutter at the lab. If you don't, and you want to build this exac
 4X  #10-32 screws (for manifold, 3/4"lg) (McMaster-Carr# 91772A831)  
 4X  #10 nylon spacers (3/8"OD x 3/8"Lg) (McMaster-Carr# 94639A454)  
 1x Laser cut vial plate  
-1x Laser cut top plate
+1x Laser cut top plate  
+Various Thorlabs parts (or whatever structural elements you have laying around) for the 3D-Printed flowmeter holder if mounting the final dilution/balance flowmeters remotely as in the example machine.
 
 #### Flow-related
 

@@ -59,8 +59,8 @@ MFByteArray = uint8([bin2dec(MFWord(:,1:8)), bin2dec(MFWord(:,9:16)), bin2dec(MF
        
             pause(1);
             
+            %Execute cleaning
             ModeByte = uint8(66);
-            
             Port.write(ModeByte, 'uint8');
        
             pause(6);

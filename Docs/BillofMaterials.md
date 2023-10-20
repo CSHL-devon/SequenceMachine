@@ -21,8 +21,7 @@
 
 16x 1/8W 120 Ohm resistors (Digi-Key# CF18JT39R0CT-ND) (Dependent on LED choice. For the LEDs listed here, you could drop the resistance by half, or more if you like them really bright. I just want an indicator and don't like eye-searing lights on everything, so I overspec the resistor).  
 1x  1/4W 10K Ohm resistor (Digi-Key# 10.0KXBK-ND)
-1x  1/4W 10 Ohm resistor (Digi-Key# 10.0XBK-ND)  
-1x  1K Trimmer (Digi-Key# 3362P-102LF-ND)  
+1x  1/4W 10 Ohm resistor (Digi-Key# 10.0XBK-ND)    
 12x 3mm Yellow LED (Digi-Key# 732-5010-ND)  
 2x  3mm Green LED (Digi-Key# 732-5008-ND)  
 2x  3mm Red LED (Digi-Key# 732-5006-ND)  

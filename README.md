@@ -51,7 +51,7 @@ I tried to keep this project as simple to build as possible. All electronic comp
 
 Speaking of LEDs, those are simply there for visual feedback of what the machine is doing. This is helpful for identifying mistakes in your valve/tubing logic (what the machine says it's doing vs what's actually happening). It also serves as confirmation that the Teensy actually received the correct serial information. I haven't seen it fail to receive the correct sequence once initialization succeeds, but nobody likes to put their faith in a black box.
 
-The valve drivers are just plain old ULN2803A darlington arrays. If you're not familiar electronics, these are pretty much just electronic switches. One lead of the valve is always connected to +12V and all the transistor does is gate its access to ground on the other lead. That's why on this machine you see a gated output labeled for each possible valve in the system (16 total), but only 8 terminals marked +12V. All valves are connected to the same +12V bus, so there's no need to separate each wire and those dual-level, space saving screw terminals are expensive. In priciple, you could twist every valve power lead together and connect it to a single +12V source.
+The valve drivers are just plain old ULN2803A darlington arrays. If you're not familiar with electronics, these are pretty much just electronic switches. One lead of the valve is always connected to +12V and all the transistor does is gate its access to ground on the other lead. That's why on this machine you see a gated output labeled for each possible valve in the system (16 total), but only 8 terminals marked +12V. All valves are connected to the same +12V bus, so there's no need to separate each wire and those dual-level, space saving screw terminals are expensive. In priciple, you could twist every valve power lead together and connect it to a single +12V source.
 
 The most expensive component (other than the Teensy) on the board is the DAC. There are not many 8-DIP, dual output, 12-BIT, through hole DACs around (or in demand), so they're pricey as electronics components go. However, if you're not using mass flow controllers, you can completely omit this part. The teensy will still control regular valves just fine.
 
@@ -61,7 +61,7 @@ The board outputs are marked with the bank/valve number to help you organize bui
 
 ![](Docs/Images/SequenceOM.png)
 
-I'll include the bill of materials for this particular machine as a referece, but this is not how it MUST be done. Notice I've only used 4 odorants in each bank. Just because the controller can do 6 per side, doesn't mean you need to build the machine that way. More odorants = more cross-contamination. 
+I'll include the bill of materials for this particular machine as a referece, but this is NOT how it must be done. Notice I've only used 4 odorants in each bank. Just because the controller can do 6 per side, doesn't mean you need to build the machine that way. More odorants = more cross-contamination. 
 
 You can also simply build one side of this machine and use it for single odor presentations (or build the dual machine but only use one side). Just set the "Paradigm" input of the "SendSequence" function to 0 and it will only control valves on bank 1.
 

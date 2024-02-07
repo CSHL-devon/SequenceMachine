@@ -118,10 +118,11 @@ void ControlValves(unsigned short Parameters[], byte MFCValues[]){
   }else{ //Sequence of two odors
     digitalWriteFast(CleaningValvePins[0], LOW); //Close cleaning valves
     digitalWriteFast(CleaningValvePins[1], LOW);
-    digitalWriteFast(Parameters[1], HIGH); //Open odor vials
-    digitalWriteFast(Parameters[2], HIGH);
-    ControlMFCs(MFCValues);
-    delay(Parameters[3]); //Prefill tubes with odor
+    digitalWriteFast(Parameters[1], HIGH); //Open first odor vials
+    delay(Parameters[5]); //Offset opening of second odor vial by stim delay time (keep total open time the same between banks)
+    digitalWriteFast(Parameters[2], HIGH); //Open second odor vial
+    ControlMFCs(MFCValues); //Turn on MFCs
+    delay(Parameters[3] - Parameters[5]); //Prefill tubes with odor
 
     //First Stimulus
     digitalWriteFast(ShuttleValvePins[0], HIGH); //Open first shuttle (final) valve
